@@ -6,7 +6,9 @@ Você aprenderá a distinguir uma fonte fornecida ao modelo de uma pesquisa na i
 
 ## Estado do projeto
 
-Guia de exploração, dados e prompt disponíveis. Integração com modelo e aplicação interativa ainda em desenvolvimento. Respostas esperadas abaixo são referências didáticas, não execuções de IA registradas.
+Aplicação interativa disponível com organização literal sem IA e integração opcional por API. Veja o **[guia de instalação e uso](../GUIA-LAND.md)**. Quinze testes automatizados aprovados; integração testada com respostas simuladas. A chamada com conta real ainda está pendente. [Registro de testes](../TESTES-LAND.md).
+
+As respostas esperadas abaixo continuam sendo referências didáticas, não execuções de IA registradas.
 
 ## Como experimentar
 
