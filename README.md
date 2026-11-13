@@ -9,7 +9,9 @@ Material autoral de **Laura Napoles**, organizado em cinco projetos complementar
 3. Use o prompt e confira o resultado com os critérios de revisão.
 4. Adapte a tarefa ao seu projeto, preservando a distinção entre evidência e hipótese.
 
-**Estado atual:** guias, dados fictícios, prompts, fontes e uma ferramenta local para preparar prompts de Land. As aplicações com modelos e a interface interativa estão em desenvolvimento. As respostas de referência são didáticas; não são resultados observados de IA nem pesquisa de mercado.
+**Estado atual:** guias das cinco fases e **aplicação interativa de Land disponível**. Land permite editar fontes, organizar recortes sem IA, comparar com um modelo por API e baixar a revisão. A integração passou por testes simulados; a chamada com conta real permanece pendente. As respostas de referência dos guias são didáticas.
+
+**[Abrir o guia de instalação e uso de Land →](GUIA-LAND.md)** · [Ver os testes e limites](TESTES-LAND.md)
 
 | Fase | Projeto | O que aprender |
 | --- | --- | --- |
@@ -23,9 +25,9 @@ Material autoral de **Laura Napoles**, organizado em cinco projetos complementar
 
 **Exploração guiada:** leia os exemplos e as referências de resposta. Não exige conta de IA nem credenciais.
 
-**Execução com modelo:** os prompts podem ser experimentados em um assistente ao qual você já tenha acesso. Recursos, condições de dados e possíveis custos dependem da ferramenta. As integrações por API serão acrescentadas depois de implementadas e testadas.
+**Execução com modelo:** os prompts podem ser experimentados em um assistente ao qual você já tenha acesso. Recursos, condições de dados e possíveis custos dependem da ferramenta. Land já inclui integração opcional por API, com configuração no painel lateral; consulte o guia e o alcance dos testes. As demais fases ainda são guias de exploração.
 
-## Primeira ferramenta executável
+## Alternativa simples pelo terminal
 
 Com Python 3 instalado, abra um terminal na pasta do projeto e execute:
 
@@ -40,9 +42,11 @@ O programa lê `dados-land.json`, confere os identificadores e imprime o prompt 
 - [x] Organização das cinco fases e guias de exploração.
 - [x] Dados fictícios, prompts e critérios de revisão.
 - [x] Preparador de prompt de Land com validação básica dos dados.
-- [ ] Integração de Land com um modelo e registro de testes.
+- [x] Interface local de Land e integração implementada, com testes simulados registrados.
+- [ ] Teste de Land com uma conta real e ensaio da demonstração.
 - [ ] Aplicações das demais fases e interface compartilhada.
-- [ ] Instruções de execução completas para cada integração.
+- [x] Guia de execução e alternativa sem IA para Land.
+- [ ] Instruções de execução das integrações das demais fases.
 
 Os exemplos das fases 1–4 usam a startup fictícia **DistribuiConecta**. A fase 5 usa um cenário didático ligado ao desafio Moinho; todos os números são inventados e não descrevem a organização real.
 
