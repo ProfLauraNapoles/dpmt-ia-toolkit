@@ -6,7 +6,7 @@ Você aprenderá a distinguir uma fonte fornecida ao modelo de uma pesquisa na i
 
 ## Estado do projeto
 
-Aplicação interativa disponível com organização literal sem IA e integração opcional por API. Veja o **[guia de instalação e uso](../GUIA-LAND.md)**. Uma primeira resposta real foi observada com os três cartões fictícios. O bloco de hipóteses foi aprimorado depois: perguntas separadas, plano de teste e critério de refutação. Vinte testes automatizados aprovados; a geração real com o novo formato ainda precisa ser conferida. [Registro de testes](../TESTES-LAND.md).
+Aplicação interativa disponível com organização literal sem IA e integração opcional por API. Veja o **[guia de instalação e uso](../GUIA-LAND.md)**. Uma primeira resposta real foi observada com os três cartões fictícios. O bloco de hipóteses foi aprimorado depois: perguntas separadas, plano de teste e critério de refutação. Após corrigir uma falha de citação, 22 testes automatizados passaram e uma nova execução real foi concluída, com resultado e exportação revisados. [Registro de testes](../TESTES-LAND.md).
 
 As respostas esperadas abaixo continuam sendo referências didáticas, não execuções de IA registradas.
 
