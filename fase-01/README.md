@@ -6,7 +6,7 @@ Você aprenderá a distinguir uma fonte fornecida ao modelo de uma pesquisa na i
 
 ## Estado do projeto
 
-Aplicação interativa disponível com organização literal sem IA e integração opcional por API. Veja o **[guia de instalação e uso](../GUIA-LAND.md)**. Quinze testes automatizados aprovados; integração testada com respostas simuladas. A chamada com conta real ainda está pendente. [Registro de testes](../TESTES-LAND.md).
+Aplicação interativa disponível com organização literal sem IA e integração opcional por API. Veja o **[guia de instalação e uso](../GUIA-LAND.md)**. Uma primeira resposta real foi observada com os três cartões fictícios. O bloco de hipóteses foi aprimorado depois: perguntas separadas, plano de teste e critério de refutação. Vinte testes automatizados aprovados; a geração real com o novo formato ainda precisa ser conferida. [Registro de testes](../TESTES-LAND.md).
 
 As respostas esperadas abaixo continuam sendo referências didáticas, não execuções de IA registradas.
 
@@ -23,7 +23,12 @@ As respostas esperadas abaixo continuam sendo referências didáticas, não exec
 Compare somente os cartões M01, M02 e M03 fornecidos. Eles são fictícios.
 Pergunta: quais capacidades de atendimento e operação estão mencionadas e quais dúvidas merecem pesquisa posterior?
 Entregue: fornecedor | capacidade mencionada | ID da fonte | informação ausente.
-Proponha duas hipóteses, identificadas como hipóteses.
+Separe até três perguntas de pesquisa para preencher lacunas, com IDs das fontes.
+Proponha até três hipóteses testáveis, identificadas como não validadas.
+Para cada hipótese, escreva o efeito esperado, as fontes que motivam a ideia,
+como testar (comparação/observação e medida) e qual resultado a enfraqueceria.
+As fontes não comprovam a hipótese. Não apresente perguntas ou tarefas de pesquisa
+como hipóteses nem invente metas numéricas. Se faltarem elementos, não force uma hipótese.
 Não converta ausência de menção em ausência de funcionalidade.
 Não invente preços, clientes, participação de mercado ou indicadores.
 ```
@@ -52,11 +57,12 @@ Não invente preços, clientes, participação de mercado ou indicadores.
 
 ## Resultado esperado e revisão
 
-Alfa menciona caixa compartilhada (M01); Beta, consulta a pedidos via ERP (M02); Gama, rascunhos com revisão (M03). Informações não mencionadas devem permanecer como lacunas. Uma hipótese possível é investigar se aproximar conversa e pedido reduz alternância entre sistemas; os cartões não comprovam esse benefício.
+Alfa menciona caixa compartilhada (M01); Beta, consulta a pedidos via ERP (M02); Gama, rascunhos com revisão (M03). Informações não mencionadas devem permanecer como lacunas. Uma pergunta de pesquisa é “Quais ERPs são compatíveis?”. Uma hipótese não validada seria “Consultar pedidos dentro do atendimento reduz o tempo de resposta”. Para testá-la, compare tempo e correção em tarefas equivalentes com e sem integração. Tempo igual ou maior, ou piora na correção, enfraqueceriam a hipótese. Os cartões não comprovam esse benefício; o teste é uma proposta, não uma pesquisa realizada.
 
 - Cada afirmação tem uma fonte que realmente a sustenta?
 - Ausência de menção permaneceu diferente de ausência de funcionalidade?
-- As hipóteses foram separadas das capacidades documentadas?
+- Perguntas de pesquisa e hipóteses foram separadas das capacidades documentadas?
+- Cada hipótese expressa um efeito observável, uma forma de teste e um resultado que a enfraqueceria?
 
 ## Adaptação ao projeto
 
