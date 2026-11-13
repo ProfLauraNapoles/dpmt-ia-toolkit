@@ -140,9 +140,41 @@ class LandTests(unittest.TestCase):
         payload = json.loads(req.data)
         self.assertFalse(payload['store'])
         self.assertTrue(payload['text']['format']['strict'])
-        self.assertEqual(payload['text']['format']['schema']['properties']['comparacao']['items']['properties']['fonte_id']['enum'], ['M01','M02','M03'])
+        branches = payload['text']['format']['schema']['properties']['comparacao']['items']['anyOf']
+        self.assertEqual([b['properties']['fonte_id']['enum'] for b in branches], [['M01'], ['M02'], ['M03']])
         self.assertEqual(json.loads(payload['input'])['fontes'][0]['trecho'], self.cards[0]['trecho'])
         self.assertNotIn('credencial-ficticia', req.data.decode())
+
+    def test_allowed_quotes_are_literal_and_bound_to_their_source(self):
+        self.cards[0]['trecho'] = 'Integração com ERP: "Ação".\nNão informa preço!  Consulte a fonte.'
+        schema = land.make_payload(QUESTION, self.cards, 'modelo-de-teste')['text']['format']['schema']
+        branches = schema['properties']['comparacao']['items']['anyOf']
+        for branch, card in zip(branches, self.cards):
+            props = branch['properties']
+            self.assertEqual(props['fonte_id']['enum'], [card['id']])
+            self.assertIn(card['trecho'], props['evidencia']['enum'])
+            self.assertTrue(all(q and q in card['trecho'] for q in props['evidencia']['enum']))
+            for quote in props['evidencia']['enum']:
+                result = land.organize_offline(QUESTION, self.cards)
+                row = next(r for r in result['comparacao'] if r['fonte_id'] == card['id'])
+                row['evidencia'] = quote
+                self.assertEqual(land.parse_response(completed(result), self.cards), result)
+        self.assertNotIn(self.cards[1]['trecho'], branches[0]['properties']['evidencia']['enum'])
+        dense = 'X. ' * 600
+        options = land.citation_options(dense)
+        self.assertLessEqual(len(options), 13)
+        self.assertIn(dense, options)
+
+    def test_nonliteral_or_wrong_source_quotes_still_fail_without_retry(self):
+        for quote in ['Caixa compartilhada entre atendentes.',
+                      'Caixa de entrada compartilhada…',
+                      CARDS[1]['trecho']]:
+            result = research_result()
+            result['comparacao'][0]['evidencia'] = quote
+            transport = Mock(return_value=io.BytesIO(json.dumps(completed(result)).encode()))
+            with self.subTest(quote=quote), self.assertRaisesRegex(land.LandError, 'fonte M01'):
+                land.call_model(QUESTION, CARDS, 'modelo-de-teste', 'credencial-ficticia', transport)
+            transport.assert_called_once()
 
     def test_refusal_incomplete_and_malformed_response(self):
         bodies = [{'status':'incomplete'}, {'status':'completed','output':[]},

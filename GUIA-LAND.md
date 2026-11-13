@@ -12,7 +12,7 @@ Um exemplo para entender onde a IA entra em um produto digital. Você fornece um
 | Com IA | O programa envia a pergunta e os cartões à API da OpenAI e solicita uma comparação estruturada. | Chave de API e modelo compatível na sua conta; pode haver cobrança. |
 | Só o prompt | Você baixa o pedido e o usa em um assistente de sua preferência. | Conforme as condições desse assistente; a resposta externa não passa pelas checagens do aplicativo. |
 
-Uma primeira chamada real foi observada e revisada com os três cartões fictícios. Depois, o bloco de hipóteses foi ajustado e passou por **20 testes automatizados sem rede**. **A nova versão ainda precisa de uma execução real para revisar as hipóteses geradas.** Veja o [registro de testes](TESTES-LAND.md). Nenhum crédito institucional é necessário para o caminho sem IA; não há promessa de créditos para o outro caminho.
+Uma primeira chamada real foi observada e revisada com os três cartões fictícios. Depois, o bloco de hipóteses foi ajustado e passou por **22 testes automatizados sem rede**. **Após corrigir uma falha de citação, uma nova execução real foi concluída: afirmações, hipóteses e exportação foram revisadas.** Veja o [registro de testes](TESTES-LAND.md). Nenhum crédito institucional é necessário para o caminho sem IA; não há promessa de créditos para o outro caminho.
 
 ## Abra no seu computador
 
@@ -60,7 +60,7 @@ As URLs no campo referência são apenas anotações. O aplicativo não abre ess
 2. Informe o identificador de um modelo disponível na sua conta que aceite a Responses API e Structured Outputs. Não há modelo nem preço fixado neste exemplo; confirme ambos na documentação e na sua conta antes do uso.
 3. Digite sua chave no campo **Chave de API**, que oculta o texto. Faça isso somente no aplicativo local. Não coloque a chave nos cartões, em capturas de tela ou no GitHub.
 4. Leia os dados, marque a opção de envio e clique em **Comparar com IA**.
-5. Revise afirmações, citações e lacunas; depois, confira **Perguntas para pesquisar** e **Hipóteses a testar — não validadas**. Cada hipótese apresenta **Como testar** e **O que enfraqueceria a hipótese**. O programa exige uma linha por fonte e descarta citações que não aparecem nos recortes.
+5. Revise afirmações, citações e lacunas; depois, confira **Perguntas para pesquisar** e **Hipóteses a testar — não validadas**. Cada hipótese apresenta **Como testar** e **O que enfraqueceria a hipótese**. O programa exige uma linha por fonte. Na API, cada fonte oferece opções de citação extraídas literalmente do recorte; a IA seleciona uma delas. A conferência local continua descartando citações que não aparecem na fonte indicada.
 6. Anote correções e baixe a revisão. Uma nova execução pode ter resposta diferente e consumir uso adicional.
 
 A chamada envia pergunta, identificadores, fornecedores, recortes e referências para a OpenAI. A chave autentica a requisição; não integra o prompt nem a exportação. Usuários técnicos podem fornecer `OPENAI_API_KEY` e `OPENAI_MODEL` no ambiente local; esses campos são opcionais. Não é necessário criar um arquivo de credenciais.
@@ -111,7 +111,7 @@ Critérios: cada afirmação tem fonte; as citações são pertinentes; ausênci
 
 ## O que este projeto verifica — e o que não verifica
 
-- Confere campos, identificadores únicos, cobertura de todas as fontes e presença literal das citações, tolerando diferenças de espaços e quebras de linha.
+- Oferece citações literais por fonte (recorte completo e até 12 segmentos), sem reescrever palavras. Confere campos, identificadores únicos, cobertura e presença literal da citação na fonte indicada, tolerando apenas diferenças de espaços e quebras de linha.
 - Confere a presença de perguntas/hipóteses em listas separadas, campos de teste não vazios e referências existentes.
 - Não prova que uma citação sustenta a interpretação, que uma hipótese é testável ou que o plano de teste é adequado. Uma conclusão errada pode citar um trecho verdadeiro.
 - Não confirma autenticidade, atualidade ou completude dos recortes, nem neutraliza todas as tentativas de instruções maliciosas dentro das fontes.

@@ -10,7 +10,7 @@ Comando executado:
 python -m unittest -v test_land test_app
 ```
 
-**Resultado atual: 20 testes aprovados** (14 de regras/integração simulada e seis da interface simulada), executados após o ajuste do bloco de hipóteses. A rodada original tinha 15 testes.
+**Resultado atual: 22 testes aprovados** (16 de regras/integração simulada e seis da interface simulada), executados após a correção das opções de citação. A rodada original tinha 15 testes.
 
 Cobertura relevante:
 
@@ -61,10 +61,29 @@ Resultado: **integração real e comparação factual observadas com sucesso nes
 - Os testes verificam estrutura e fluxo. Não detectam automaticamente toda pergunta disfarçada de hipótese, nem comprovam adequação do método proposto. Essa revisão é humana. A resposta didática usada nos testes não foi gerada por IA.
 - Documentação oficial de [Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs) reconsultada em 13/11/2026: campos obrigatórios e objetos sem propriedades extras; checagens de negócio e revisão de conteúdo continuam necessárias.
 
+## Citações literais por fonte — 13/11/2026
+
+Após o ajuste de hipóteses, uma nova execução de Laura foi bloqueada com a mensagem de citação não correspondente. A resposta rejeitada não foi preservada; não é possível afirmar se houve paráfrase, pontuação alterada ou troca de fonte.
+
+O campo `evidencia` antes aceitava texto livre no formato da API, embora a conferência local exigisse correspondência literal. Agora o formato associa cada `fonte_id` a opções de citação copiadas de seu próprio recorte: texto inteiro e até 12 segmentos, sem alterar palavras. O formato usa alternativas `anyOf`, com valores `enum` por fonte. A verificação local continua ativa; nenhum texto rejeitado é corrigido silenciosamente ou aceito por semelhança. Mensagens de falha identificam a fonte e não repetem a chamada automaticamente.
+
+Dois novos testes exercitam opções com acentos, aspas, pontuação e quebras de linha, vínculo entre fonte e citação, limite de opções e rejeição de paráfrase, reticências e citação de outra fonte. Uma evidência literal ainda pode não sustentar uma interpretação: isso depende da revisão humana.
+
+## Execução real após a correção das citações
+
+Executada **uma chamada** no aplicativo local com a configuração já preenchida e consentida por Laura, após aplicar a alteração. Não houve repetição automática nem acesso ao valor da chave. Modelo informado: `gpt-6-luna`; três fontes fictícias originais.
+
+- Resultado aceito: três afirmações sustentadas pelos recortes e três citações literais da fonte correta. Lacunas preservadas, sem preços ou resultados inventados.
+- Três perguntas de pesquisa separadas de três hipóteses não validadas. As hipóteses propõem efeitos sobre tempo de resposta/atendimento/elaboração, com medidas de qualidade; cada uma tem comparação proposta e resultado que a enfraqueceria.
+- Exemplo observado: “A consulta de pedidos por integração com ERP reduz o tempo de atendimento sem prejudicar a correção das informações fornecidas.” Teste proposto: comparar tarefas equivalentes com consulta integrada e processo usual, medindo tempo e correção. Tempo igual/maior ou piora na correção enfraqueceriam a hipótese.
+- Revisão de Ada: adequado como ponto de partida didático. Antes de executar pesquisas, definir participantes, equivalência das tarefas, critérios de correção e controle de diferenças entre grupos/períodos. Nenhuma dessas hipóteses foi validada com participantes.
+- Uso informado pelo serviço: **1.392 tokens de entrada + 1.352 de saída = 2.744**. Valor cobrado não conferido.
+- Download `comparacao-land.json` lido e verificado: versão 2, modo IA, fontes, perguntas, hipóteses, planos, critérios e uso preservados. Campos de revisão de Laura continuam desmarcados; não foram preenchidos pelo agente. Campos exportados conferidos sem credenciais.
+- A captura do resultado e o arquivo foram preservados no material interno de preparação, fora dos arquivos do repositório. O sucesso desta execução não garante o comportamento de todos os modelos/entradas.
+
 ## Pendências antes da gravação com IA
 
-- Conferir o JSON exportado desta execução quando estiver disponível e registrar a revisão humana.
-- Executar uma comparação real com o novo formato e revisar se as hipóteses e seus testes são pertinentes; conferir se a redação específica das lacunas melhorou.
+- Laura registrar sua própria revisão na aplicação; a revisão de Ada e o download da nova execução estão conferidos acima.
 - Ensaiar os nove minutos da demonstração e a alternativa sem IA.
 
 Não validados: instalação em Windows/Linux, celulares, ambiente multiusuário, hospedagem pública, carga ou acessibilidade integral. O projeto é um exemplo didático local, não um serviço publicado.
