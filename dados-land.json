@@ -1,0 +1,17 @@
+[
+  {
+    "id": "M01",
+    "fornecedor": "Alfa",
+    "trecho": "Caixa de entrada compartilhada e distribuição de conversas entre atendentes. O trecho não menciona integração com pedidos nem preço."
+  },
+  {
+    "id": "M02",
+    "fornecedor": "Beta",
+    "trecho": "Consulta a pedidos por integração com ERP. O trecho não descreve caixa de entrada compartilhada nem informa tempo de implantação."
+  },
+  {
+    "id": "M03",
+    "fornecedor": "Gama",
+    "trecho": "Geração de rascunhos de resposta com revisão humana. O trecho não informa as bases utilizadas nem taxa de acerto."
+  }
+]
