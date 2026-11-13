@@ -9,7 +9,7 @@ Material autoral de **Laura Napoles**, organizado em cinco projetos complementar
 3. Use o prompt e confira o resultado com os critérios de revisão.
 4. Adapte a tarefa ao seu projeto, preservando a distinção entre evidência e hipótese.
 
-**Estado atual:** guias das cinco fases e **aplicação interativa de Land disponível**. Land permite editar fontes, organizar recortes sem IA, comparar com um modelo por API e baixar a revisão. A integração passou por testes simulados; a chamada com conta real permanece pendente. As respostas de referência dos guias são didáticas.
+**Estado atual:** guias das cinco fases e **aplicação interativa de Land disponível**. Land permite editar fontes, organizar recortes sem IA, comparar com um modelo por API e baixar a revisão. Uma primeira chamada real com os cartões fictícios foi observada e revisada pela tela. O bloco foi depois aprimorado para separar perguntas de pesquisa de hipóteses, com plano de teste e critério de refutação. Essa revisão passou por 20 testes sem rede; a nova geração real ainda precisa ser conferida. As respostas de referência dos guias são didáticas.
 
 **[Abrir o guia de instalação e uso de Land →](GUIA-LAND.md)** · [Ver os testes e limites](TESTES-LAND.md)
 
@@ -43,7 +43,9 @@ O programa lê `dados-land.json`, confere os identificadores e imprime o prompt 
 - [x] Dados fictícios, prompts e critérios de revisão.
 - [x] Preparador de prompt de Land com validação básica dos dados.
 - [x] Interface local de Land e integração implementada, com testes simulados registrados.
-- [ ] Teste de Land com uma conta real e ensaio da demonstração.
+- [x] Primeira resposta real de Land observada e revisada com os três cartões fictícios.
+- [x] Perguntas de pesquisa separadas de hipóteses, com como testar e o que enfraqueceria cada hipótese.
+- [ ] Nova execução real após o ajuste das hipóteses e ensaio da demonstração.
 - [ ] Aplicações das demais fases e interface compartilhada.
 - [x] Guia de execução e alternativa sem IA para Land.
 - [ ] Instruções de execução das integrações das demais fases.

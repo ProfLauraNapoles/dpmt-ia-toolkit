@@ -12,6 +12,19 @@ CARDS = json.loads(Path(__file__).with_name('dados-land.json').read_text())
 QUESTION = land.DEFAULT_QUESTION
 
 
+def research_result(cards=CARDS):
+    """Resposta didática, não gerada por IA nem resultado de pesquisa real."""
+    result = land.organize_offline(QUESTION, cards)
+    result['perguntas_pesquisa'] = [{'pergunta': 'Quais ERPs são compatíveis?', 'fontes': ['M02']}]
+    result['hipoteses'] = [{
+        'hipotese': 'Consultar pedidos no atendimento reduz o tempo de resposta.',
+        'fontes': ['M02'],
+        'como_testar': 'Comparar tempo e correção das respostas em tarefas equivalentes com e sem integração.',
+        'o_que_enfraquece': 'Tempo igual ou maior, ou piora na correção das respostas.',
+    }]
+    return result
+
+
 def completed(result):
     return {'status': 'completed', 'output': [
         {'type': 'reasoning', 'summary': []},
@@ -63,12 +76,56 @@ class LandTests(unittest.TestCase):
         self.assertEqual(land.validate_result(self.result, self.cards), self.result)
 
     def test_invalid_hypothesis_reference_and_missing_limits(self):
-        for field, value in [('hipoteses', [{'hipotese':'Investigar integração','fontes':['X99']}]),
-                             ('limites', []), ('comparacao', 'texto livre')]:
+        bad_hypothesis = research_result()['hipoteses'][0]
+        bad_hypothesis['fontes'] = ['X99']
+        for field, value in [('hipoteses', [bad_hypothesis]), ('limites', []), ('comparacao', 'texto livre')]:
             result = copy.deepcopy(self.result)
             result[field] = value
             with self.subTest(field=field), self.assertRaises(land.LandError):
                 land.validate_result(result, self.cards)
+
+    def test_research_questions_and_testable_hypotheses_contract(self):
+        result = research_result()
+        self.assertEqual(land.parse_response(completed(result), self.cards), result)
+        # Rejeita versões antigas/incompletas, campos em branco e referências inválidas.
+        for section, field, value in [
+            ('hipoteses', 'como_testar', None), ('hipoteses', 'o_que_enfraquece', ''),
+            ('hipoteses', 'fontes', []), ('hipoteses', 'fontes', ['M02', 'M02']),
+            ('perguntas_pesquisa', 'pergunta', ' '), ('perguntas_pesquisa', 'fontes', ['X99']),
+            ('perguntas_pesquisa', 'fontes', []),
+        ]:
+            invalid = copy.deepcopy(result)
+            if value is None:
+                del invalid[section][0][field]
+            else:
+                invalid[section][0][field] = value
+            with self.subTest(section=section, field=field, value=value), self.assertRaises(land.LandError):
+                land.validate_result(invalid, self.cards)
+        for section in ('hipoteses', 'perguntas_pesquisa'):
+            invalid = copy.deepcopy(result)
+            invalid[section] *= 4
+            with self.subTest(section=section), self.assertRaises(land.LandError):
+                land.validate_result(invalid, self.cards)
+        # O sistema aceita a decisão de não propor hipóteses; não as fabrica por regra.
+        result['hipoteses'] = []
+        self.assertEqual(land.validate_result(result, self.cards), result)
+
+    def test_export_preserves_research_and_test_plan(self):
+        result = research_result()
+        review = {'hipoteses_separadas': True, 'testes_revisados': True, 'anotacao': 'Teste ainda não realizado.'}
+        exported = json.loads(json.dumps(land.report(QUESTION, self.cards, 'ia', 'modelo-de-teste', result, {}, review)))
+        self.assertEqual(exported['versao'], 2)
+        self.assertEqual(exported['resultado'], result)
+        self.assertEqual(exported['revisao_humana'], review)
+
+    def test_schema_and_terminal_prompt_match_the_app(self):
+        from preparar_prompt import montar_prompt
+        self.assertEqual(montar_prompt(self.cards), land.build_prompt(QUESTION, self.cards))
+        schema = land.make_payload(QUESTION, self.cards, 'modelo-de-teste')['text']['format']['schema']
+        self.assertIn('perguntas_pesquisa', schema['required'])
+        hypothesis_schema = schema['properties']['hipoteses']['items']
+        self.assertEqual(set(hypothesis_schema['required']), {'hipotese', 'fontes', 'como_testar', 'o_que_enfraquece'})
+        self.assertFalse(hypothesis_schema['additionalProperties'])
 
     def test_responses_protocol_and_usage_without_network(self):
         transport = Mock(return_value=io.BytesIO(json.dumps(completed(self.result)).encode()))

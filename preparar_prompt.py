@@ -1,6 +1,7 @@
 """Prepara o exemplo de Land. Não chama IA nem acessa a rede."""
 import json
 from pathlib import Path
+from land_core import DEFAULT_QUESTION, build_prompt
 
 
 def montar_prompt(cartoes):
@@ -17,14 +18,7 @@ def montar_prompt(cartoes):
         if cartao["id"] in ids:
             raise ValueError("Os identificadores das fontes devem ser únicos.")
         ids.add(cartao["id"])
-    instrucao = (
-        "Compare somente os cartões fictícios abaixo.\n"
-        "Entregue: fornecedor | capacidade mencionada | ID da fonte | informação ausente.\n"
-        "Separe duas hipóteses para investigação.\n"
-        "Não converta ausência de menção em ausência de funcionalidade.\n"
-        "Não invente preços, clientes ou indicadores.\n\nDADOS FICTÍCIOS\n"
-    )
-    return instrucao + json.dumps(cartoes, ensure_ascii=False, indent=2)
+    return build_prompt(DEFAULT_QUESTION, cartoes)
 
 
 if __name__ == "__main__":

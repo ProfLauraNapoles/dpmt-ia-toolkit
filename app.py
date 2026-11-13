@@ -43,7 +43,7 @@ with st.sidebar:
         if not supplied_key and api_key:
             st.caption("Chave configurada no ambiente local.")
         consent = st.checkbox("Quero enviar estes dados à OpenAI; o uso pode gerar cobrança.", key="consent")
-        st.caption("Use um modelo compatível com Responses e Structured Outputs. O teste com uma conta real ainda precisa ser realizado.")
+        st.caption("A qualidade da comparação depende das fontes e do modelo. Revise cada resultado antes de usá-lo.")
     else:
         st.info("Sem conta e sem envio de dados. O programa organiza literalmente os trechos; a interpretação é sua.")
     st.button("Restaurar exemplo fictício", on_click=reset_example, key="reset")
@@ -88,7 +88,7 @@ signature = fingerprint(question, cards, mode, model)
 old = st.session_state.get("execution")
 if old and old["signature"] != signature:
     del st.session_state["execution"]
-    st.info("Você alterou a entrada. Gere um novo resultado para comparar as fontes atuais.")
+    st.info("A entrada ou o formato do resultado mudou. Gere uma nova comparação com as fontes atuais.")
 
 valid, prompt = True, ""
 try:
@@ -142,10 +142,22 @@ if execution:
             st.text("Evidência literal: " + row["evidencia"])
             st.text("Lacunas: " + ("; ".join(row["lacunas"]) or "Nenhuma declarada pelo modelo; confira."))
             st.divider()
+    if result["perguntas_pesquisa"]:
+        st.markdown("**Perguntas para pesquisar**")
+        st.caption("Informações que ainda faltam. Uma pergunta de pesquisa não é uma hipótese.")
+        for i, item in enumerate(result["perguntas_pesquisa"], 1):
+            st.text(f"{i}. {item['pergunta']}\nFontes que motivam a pergunta: {', '.join(item['fontes'])}")
     if result["hipoteses"]:
-        st.markdown("**Hipóteses para investigar**")
+        st.markdown("**Hipóteses a testar — não validadas**")
+        st.caption("As fontes motivam estas ideias, mas não comprovam o efeito proposto. Os testes abaixo ainda não foram realizados.")
         for i, item in enumerate(result["hipoteses"], 1):
-            st.text(f"{i}. {item['hipotese']}\nFontes relacionadas: {', '.join(item['fontes']) or 'nenhuma'}")
+            with st.container(border=True):
+                st.text(f"{i}. {item['hipotese']}")
+                st.text("Fontes que motivam a hipótese: " + ', '.join(item['fontes']))
+                st.text("Como testar: " + item['como_testar'])
+                st.text("O que enfraqueceria a hipótese: " + item['o_que_enfraquece'])
+    elif execution["mode"] == "ia":
+        st.info("Nenhuma hipótese foi proposta. Confira os limites e as perguntas para decidir o que investigar.")
     for limitation in result["limites"]:
         st.text(limitation)
     if execution["usage"]:
@@ -155,7 +167,9 @@ if execution:
     review = {
         "afirmacoes_sustentadas": st.checkbox("Conferi se as fontes sustentam as afirmações.", key=f"review_claims_{run_id}"),
         "lacunas_preservadas": st.checkbox("Conferi se informação ausente permaneceu como lacuna.", key=f"review_gaps_{run_id}"),
-        "hipoteses_separadas": st.checkbox("Separei hipóteses de evidências.", key=f"review_hypotheses_{run_id}"),
+        "hipoteses_separadas": st.checkbox("Distingui evidências, perguntas de pesquisa e hipóteses não validadas.", key=f"review_hypotheses_{run_id}"),
+        "testes_revisados": st.checkbox("Revisei como testar cada hipótese e o que a enfraqueceria.", key=f"review_tests_{run_id}",
+                                        disabled=not bool(result["hipoteses"])),
         "anotacao": st.text_area("O que precisa ser corrigido ou investigado?", max_chars=3000, key=f"note_{run_id}"),
     }
     document = report(execution["question"], execution["cards"], execution["mode"],

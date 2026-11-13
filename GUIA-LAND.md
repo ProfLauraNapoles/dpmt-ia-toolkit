@@ -2,7 +2,7 @@
 
 Um exemplo para entender onde a IA entra em um produto digital. Você fornece uma pergunta e de uma a seis fontes, acompanha a preparação do contexto e revisa o resultado. O caso inicial usa Alfa, Beta e Gama, fornecedores **fictícios** no cenário DistribuiConecta.
 
-**Objetivo de aprendizagem:** explicar o caminho interface → programa → contexto → modelo → checagens → revisão humana e distinguir evidência, informação ausente e hipótese.
+**Objetivo de aprendizagem:** explicar o caminho interface → programa → contexto → modelo → checagens → revisão humana e distinguir evidência, informação ausente, pergunta de pesquisa e hipótese testável.
 
 ## Escolha como explorar
 
@@ -12,7 +12,7 @@ Um exemplo para entender onde a IA entra em um produto digital. Você fornece um
 | Com IA | O programa envia a pergunta e os cartões à API da OpenAI e solicita uma comparação estruturada. | Chave de API e modelo compatível na sua conta; pode haver cobrança. |
 | Só o prompt | Você baixa o pedido e o usa em um assistente de sua preferência. | Conforme as condições desse assistente; a resposta externa não passa pelas checagens do aplicativo. |
 
-A integração com IA está implementada e passou por testes com respostas simuladas. **A chamada com uma conta real ainda não foi testada.** Veja o [registro de testes](TESTES-LAND.md). Nenhum crédito institucional é necessário para o caminho sem IA; não há promessa de créditos para o outro caminho.
+Uma primeira chamada real foi observada e revisada com os três cartões fictícios. Depois, o bloco de hipóteses foi ajustado e passou por **20 testes automatizados sem rede**. **A nova versão ainda precisa de uma execução real para revisar as hipóteses geradas.** Veja o [registro de testes](TESTES-LAND.md). Nenhum crédito institucional é necessário para o caminho sem IA; não há promessa de créditos para o outro caminho.
 
 ## Abra no seu computador
 
@@ -60,7 +60,7 @@ As URLs no campo referência são apenas anotações. O aplicativo não abre ess
 2. Informe o identificador de um modelo disponível na sua conta que aceite a Responses API e Structured Outputs. Não há modelo nem preço fixado neste exemplo; confirme ambos na documentação e na sua conta antes do uso.
 3. Digite sua chave no campo **Chave de API**, que oculta o texto. Faça isso somente no aplicativo local. Não coloque a chave nos cartões, em capturas de tela ou no GitHub.
 4. Leia os dados, marque a opção de envio e clique em **Comparar com IA**.
-5. Revise cada afirmação, a citação literal, as lacunas e as hipóteses. O programa exige uma linha por fonte e descarta citações que não aparecem nos recortes.
+5. Revise afirmações, citações e lacunas; depois, confira **Perguntas para pesquisar** e **Hipóteses a testar — não validadas**. Cada hipótese apresenta **Como testar** e **O que enfraqueceria a hipótese**. O programa exige uma linha por fonte e descarta citações que não aparecem nos recortes.
 6. Anote correções e baixe a revisão. Uma nova execução pode ter resposta diferente e consumir uso adicional.
 
 A chamada envia pergunta, identificadores, fornecedores, recortes e referências para a OpenAI. A chave autentica a requisição; não integra o prompt nem a exportação. Usuários técnicos podem fornecer `OPENAI_API_KEY` e `OPENAI_MODEL` no ambiente local; esses campos são opcionais. Não é necessário criar um arquivo de credenciais.
@@ -68,6 +68,18 @@ A chamada envia pergunta, identificadores, fornecedores, recortes e referências
 Há uma única tentativa por clique, com espera de conexão de até 45 segundos e limite de saída de 4.000 tokens. Se o modelo não completar a resposta nesse limite, o aplicativo mostra uma mensagem em vez de aceitar uma tabela parcial. Não há cálculo de preço: os tokens eventualmente exibidos são os informados pelo serviço.
 
 A requisição usa `store: false`, que controla o armazenamento da resposta pela API. Isso **não equivale a garantia de ausência de retenção** de todos os dados do serviço; consulte as condições aplicáveis à sua conta. Este exemplo foi preparado para uso local individual, sem autenticação própria para hospedagem compartilhada.
+
+## Diferencie pergunta e hipótese
+
+- **Evidência:** “Consulta a pedidos por integração com ERP”, no recorte M02.
+- **Pergunta de pesquisa:** “Quais ERPs são compatíveis?” Preenche uma lacuna.
+- **Hipótese não validada:** “Consultar pedidos dentro do atendimento reduz o tempo de resposta.” Propõe um efeito observável.
+- **Como testar:** comparar tempo e correção das respostas em tarefas equivalentes com e sem integração.
+- **O que enfraqueceria:** tempo igual ou maior, ou piora na correção das respostas.
+
+Este é um exemplo didático escrito para ensino. A fonte motiva a hipótese, mas não comprova o benefício; nenhum teste com participantes foi realizado. O modelo pode não propor hipóteses quando faltarem elementos. Ter todos os campos preenchidos não garante que a hipótese ou o teste sejam bons: a revisão continua humana.
+
+O arquivo baixado usa a versão 2: perguntas ficam em `perguntas_pesquisa`, hipóteses em `hipoteses`, com `como_testar` e `o_que_enfraquece`. Downloads antigos continuam sendo registros da versão anterior; o aplicativo não os importa nem converte. Depois de atualizar o programa, gere uma nova comparação para obter o novo formato. Uma nova chamada com IA pode gerar cobrança.
 
 ## Se algo falhar
 
@@ -95,12 +107,13 @@ Este recorte cabe no bloco de demonstração de Land; não substitui a aula de 6
 
 Acrescente um cartão fictício sobre um quarto fornecedor, mencionando uma capacidade e omitindo uma informação relevante. Gere ou organize a comparação e escreva duas perguntas para pesquisa posterior. Essa atividade não é uma nova entrega obrigatória da FIAP.
 
-Critérios: cada afirmação tem fonte; as citações são pertinentes; ausência de informação permanece como lacuna; hipóteses estão identificadas; o aluno explica o que mudaria sua conclusão. A aparência da tabela não é critério de qualidade.
+Critérios: cada afirmação tem fonte; as citações são pertinentes; ausência de informação permanece como lacuna; perguntas não são apresentadas como hipóteses; cada hipótese tem uma forma de teste e um resultado que a enfraqueceria; o aluno explica o que mudaria sua conclusão. A aparência da tabela não é critério de qualidade.
 
 ## O que este projeto verifica — e o que não verifica
 
 - Confere campos, identificadores únicos, cobertura de todas as fontes e presença literal das citações, tolerando diferenças de espaços e quebras de linha.
-- Não prova que uma citação sustenta a interpretação. Uma conclusão errada pode citar um trecho verdadeiro.
+- Confere a presença de perguntas/hipóteses em listas separadas, campos de teste não vazios e referências existentes.
+- Não prova que uma citação sustenta a interpretação, que uma hipótese é testável ou que o plano de teste é adequado. Uma conclusão errada pode citar um trecho verdadeiro.
 - Não confirma autenticidade, atualidade ou completude dos recortes, nem neutraliza todas as tentativas de instruções maliciosas dentro das fontes.
 - Não valida mercado ou vantagem competitiva. Os dados iniciais são inventados para ensinar o método.
 
