@@ -6,7 +6,7 @@ A unidade é empresa, a janela comum é de 60 dias e as etapas são acumuladas. 
 
 ## Estado do projeto
 
-Guia de exploração, dados e prompt disponíveis. Integração com modelo e aplicação interativa ainda em desenvolvimento. Respostas esperadas abaixo são referências didáticas, não execuções de IA registradas.
+Atividade guiada com dados fictícios, prompt, exemplos de referência e critérios de revisão. Você pode estudar os exemplos sem conta de IA ou experimentar o prompt em um assistente ao qual já tenha acesso. Aplicativo próprio e integração automática não fazem parte do escopo desta fase. As respostas esperadas abaixo são referências didáticas, não execuções de IA registradas.
 
 ## Como experimentar
 
