@@ -6,7 +6,7 @@ O fluxo combina segmentação por regras e redação assistida. As mensagens sã
 
 ## Estado do projeto
 
-Guia de exploração, dados e prompt disponíveis. Integração com modelo e aplicação interativa ainda em desenvolvimento. Respostas esperadas abaixo são referências didáticas, não execuções de IA registradas.
+Atividade guiada com dados fictícios, prompt, exemplos de referência e critérios de revisão. Você pode estudar os exemplos sem conta de IA ou experimentar o prompt em um assistente ao qual já tenha acesso. Aplicativo próprio e integração automática não fazem parte do escopo desta fase. As respostas esperadas abaixo são referências didáticas, não execuções de IA registradas.
 
 ## Como experimentar
 
