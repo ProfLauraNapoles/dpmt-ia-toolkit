@@ -25,7 +25,7 @@ Material autoral de **Laura Napoles**, organizado em cinco projetos complementar
 
 **Exploração guiada:** leia os exemplos e as referências de resposta. Não exige conta de IA nem credenciais.
 
-**Execução com modelo:** os prompts podem ser experimentados em um assistente ao qual você já tenha acesso. Recursos, condições de dados e possíveis custos dependem da ferramenta. Land já inclui integração opcional por API, com configuração no painel lateral; consulte o guia e o alcance dos testes. As demais fases ainda são guias de exploração.
+**Execução com modelo:** os prompts podem ser experimentados em um assistente ao qual você já tenha acesso. Recursos, condições de dados e possíveis custos dependem da ferramenta. Land inclui integração opcional por API, com configuração no painel lateral; consulte o guia e o alcance dos testes. Discover, Build & Ship, Growth e Learn & Iterate oferecem atividades guiadas com prompts, dados fictícios, exemplos de referência e critérios de revisão. Essas quatro fases podem ser exploradas pela leitura dos exemplos ou pela experimentação dos prompts em um assistente; aplicativos próprios não fazem parte do escopo desta versão.
 
 ## Alternativa simples pelo terminal
 
@@ -47,9 +47,8 @@ O programa lê `dados-land.json`, confere os identificadores e imprime o prompt 
 - [x] Perguntas de pesquisa separadas de hipóteses, com como testar e o que enfraqueceria cada hipótese.
 - [x] Nova execução real após os ajustes de hipóteses e citações; resultado e exportação revisados.
 - [ ] Ensaio da demonstração.
-- [ ] Aplicações das demais fases e interface compartilhada.
+- [x] Atividades guiadas das fases 2 a 5, com prompts e revisão humana.
 - [x] Guia de execução e alternativa sem IA para Land.
-- [ ] Instruções de execução das integrações das demais fases.
 
 Os exemplos das fases 1–4 usam a startup fictícia **DistribuiConecta**. A fase 5 usa um cenário didático ligado ao desafio Moinho; todos os números são inventados e não descrevem a organização real.
 
