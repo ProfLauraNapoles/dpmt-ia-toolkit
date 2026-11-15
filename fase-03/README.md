@@ -2,11 +2,11 @@
 
 Especifique um assistente que consulta políticas fictícias e prepara um rascunho com referências. A exploração manual ajuda a entender RAG: recuperar informação antes de gerar uma resposta.
 
-A aplicação com recuperação automática ainda será implementada. Selecionar trechos manualmente neste exercício não é executar uma busca vetorial.
+Neste exercício, a seleção dos trechos é manual. A atividade ilustra a relação entre fontes e respostas; não implementa recuperação automática nem busca vetorial.
 
 ## Estado do projeto
 
-Guia de exploração, dados e prompt disponíveis. Integração com modelo e aplicação interativa ainda em desenvolvimento. Respostas esperadas abaixo são referências didáticas, não execuções de IA registradas.
+Atividade guiada com dados fictícios, prompt, exemplos de referência e critérios de revisão. Você pode estudar os exemplos sem conta de IA ou experimentar o prompt em um assistente ao qual já tenha acesso. Aplicativo próprio e integração automática não fazem parte do escopo desta fase. As respostas esperadas abaixo são referências didáticas, não execuções de IA registradas.
 
 ## Como experimentar
 
